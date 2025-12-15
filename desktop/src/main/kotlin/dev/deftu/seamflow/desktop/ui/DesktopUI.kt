@@ -24,11 +24,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.deftu.seamflow.desktop.AppState
-import dev.deftu.seamflow.desktop.config.AppConfig
 import dev.deftu.seamflow.desktop.ui.screen.DiscoveryScreen
 
 @Composable
-fun DesktopUI(appState: AppState, config: AppConfig) {
+fun DesktopUI(appState: AppState) {
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
 

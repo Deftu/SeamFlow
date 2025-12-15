@@ -8,8 +8,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
+import dev.deftu.seamflow.core.DeviceId
+import dev.deftu.seamflow.desktop.config.AppConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.io.files.Path
 import kotlinx.serialization.json.Json
 
@@ -27,15 +30,24 @@ data class AppState(
     val configPath = Path(System.getenv("SEAMFLOW_CONFIG_PATH") ?: defaultConfigPath())
 
     val isConnected: StateFlow<Boolean> get() = _isConnected
+    val config: StateFlow<AppConfig?> get() = _config
 
     private val _isConnected = MutableStateFlow(false)
+    private val _config = MutableStateFlow<AppConfig?>(null)
 
-    fun connect() {
+    fun connect(persistentDeviceId: DeviceId?) {
         _isConnected.value = true
+
+        _config.update { config -> config?.usingNewDevice(persistentDeviceId) }
     }
 
     fun disconnect() {
         _isConnected.value = false
+    }
+
+    suspend fun readConfig() {
+        _config.value = AppConfig.readFrom(json, configPath)
+        println("App config: $config")
     }
 
     /**

@@ -47,4 +47,8 @@ data class AppConfig(
             write(json, path, AppConfig())
         }
     }
+
+    fun usingNewDevice(persistentDeviceId: DeviceId?): AppConfig {
+        return copy(persistentDeviceId = persistentDeviceId)
+    }
 }

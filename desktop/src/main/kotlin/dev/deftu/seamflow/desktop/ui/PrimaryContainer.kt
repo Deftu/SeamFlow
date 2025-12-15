@@ -8,34 +8,32 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.FrameWindowScope
 import dev.deftu.seamflow.desktop.AppState
-import dev.deftu.seamflow.desktop.config.AppConfig
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import java.awt.Frame
 import java.awt.event.WindowEvent
 
 @Composable
 fun FrameWindowScope.PrimaryContainer(appState: AppState) {
-    val scope = rememberCoroutineScope()
+    val config by appState.config.collectAsState()
     val isSystemDark = isSystemInDarkTheme()
+    val isConfigDark = config?.isDarkTheme
+    val isDark = isConfigDark ?: isSystemDark
     var isLoading by remember { mutableStateOf(true) }
-    var config by remember { mutableStateOf<AppConfig?>(null) }
-    val isDark = config?.isDarkTheme ?: isSystemDark
 
     LaunchedEffect(Unit) {
-        scope.launch {
-            config = AppConfig.readFrom(appState.json, appState.configPath)
-            isLoading = false
-        }
+        appState.readConfig()
+        delay(5_000L)
+        isLoading = false
     }
 
     MaterialTheme(
@@ -47,7 +45,7 @@ fun FrameWindowScope.PrimaryContainer(appState: AppState) {
             color = MaterialTheme.colors.background,
         ) {
             Column(Modifier.fillMaxSize()) {
-                when (isLoading && config == null) {
+                when (isLoading || config == null) {
                     true -> SplashScreen()
 
                     false -> {
@@ -57,7 +55,7 @@ fun FrameWindowScope.PrimaryContainer(appState: AppState) {
                             onClose = window::close
                         )
 
-                        DesktopUI(appState, config!!)
+                        DesktopUI(appState)
                     }
                 }
             }
