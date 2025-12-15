@@ -23,7 +23,7 @@ SeamFlow is an open-source, cross-device linking application designed to seamles
 
 ### Core Features
 
-> [!NOTE]
+> [!WARNING]
 > Feature availability varies by platform due to operating system limitations.
 > Some features (e.g. notification replies, SMS, remote control) are only supported on specific platforms.
 
