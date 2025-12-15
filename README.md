@@ -96,6 +96,18 @@ SeamFlow is an open-source, cross-device linking application designed to seamles
 
 ---
 
+## But how will this be funded?
+
+SeamFlow is **currently** being developed as a completely free and open-source project.
+However, the only way to keep development sustainable for the time being is through donations and sponsorships.
+
+This does NOT mean the app may remain entirely "free" forever, as there may come a time in the future where certain
+parts of the app may include advertisements or premium features to help support ongoing development costs.
+
+https://s.deftu.dev/kofi
+
+---
+
 [![BisectHosting](https://www.bisecthosting.com/partners/custom-banners/8fb6621b-811a-473b-9087-c8c42b50e74c.png)](https://s.deftu.dev/bisect)
 
 ---
