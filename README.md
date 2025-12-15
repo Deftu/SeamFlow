@@ -14,6 +14,10 @@ SeamFlow is an open-source, cross-device linking application designed to seamles
 
 ### Platform Support
 
+> [!WARNING]
+> iOS and macOS have significant limitations imposed by Apple that restrict feature availability compared to other platforms.
+> Neither will be prioritized for any kind of initial development; the primary focus will be on Windows, Linux and Android.
+
 - [ ] Windows
 - [ ] Linux
 - [ ] macOS
