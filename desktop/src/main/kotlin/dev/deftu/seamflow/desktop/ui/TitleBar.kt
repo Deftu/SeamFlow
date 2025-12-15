@@ -70,7 +70,7 @@ fun WindowScope.TitleBar(
             WindowControlButton(
                 label = "×",
                 onClick = onClose,
-                contentColor = colors.onError,
+                contentColor = colors.onSurface,
                 hoverColor = colors.error.copy(alpha = 0.90f),
                 activeColor = colors.error.copy(alpha = 0.75f),
             )
